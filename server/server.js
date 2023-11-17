@@ -54,4 +54,4 @@ app.post('/register', encodeUrl, (req, res) => {
                     password: password 
                 };
             
-});
+}); 
