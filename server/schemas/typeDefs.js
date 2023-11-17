@@ -5,13 +5,14 @@ const typeDefs = `
 
     type mutation {
         login(email: String!, password: String!): Auth
-        addUser(name: String!, email: String!, password: String!): Auth
+        addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
         saveEvent(data: ID): User
     }
 
     type User {
         _id: ID
-        username: String
+        firstName: String
+        lastName: String
         email: String
     }
 
