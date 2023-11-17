@@ -26,6 +26,9 @@ const EventSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  image: {
+    type: String,
+  },
   admin: {
     type: mongoose.Types.ObjectId,
     ref: "User",

@@ -1,11 +1,10 @@
 const db = require("./connection");
-const eventDB = require("./EventDB");
 const { Event, User } = require("../models");
+const cleanDB = require('./cleanDB');
 
 db.once("open", async () => {
-  await eventDB("Event", "events");
-  await eventDB("User", "users");
-
+  await cleanDB('Event', 'events');
+  await cleanDB('User', 'users');
   const events = await Event.insertMany([
     {
       name: "Competitive Bird Feeding",
@@ -78,7 +77,7 @@ db.once("open", async () => {
 
   await User.create({
     firstName: "Justin",
-    Lastname: "Ramos",
+    lastName: "Ramos",
     email: "justinsfakeemail@gmail.com",
     password: "justinsfakepw123",
   });
