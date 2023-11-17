@@ -21,6 +21,11 @@ const typeDefs = `
         description: String
         image: String
         link: String
+        date: Date
+        location: String
+        name: String
+        ticketQuantity: Number
+        ticketPrice: Number
     }
 
     type Auth {
