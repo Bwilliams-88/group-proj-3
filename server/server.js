@@ -1,13 +1,23 @@
 // server/server.js
 const path = require('path');
 const express = require('express');
+const { ApolloServer, gql } = require('apollo-server-express');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const mongooseConnection = require('./config/connection'); // Adjust the path as needed
+const mongooseConnection = require('./config/connection');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+// MongoDB connection
+mongooseConnection.on('error', (error) => {
+  console.error('MongoDB connection error:', error);
+});
+
+mongooseConnection.once('open', () => {
+  console.log('MongoDB connected successfully');
+});
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -22,27 +32,12 @@ app.use(
   })
 );
 
-// MongoDB connection
-mongooseConnection.on('error', (error) => {
-  console.error('MongoDB connection error:', error);
-});
-
-mongooseConnection.once('open', () => {
-  console.log('MongoDB connected successfully');
-});
-
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'register.html'));
 });
 
 app.post('/register', (req, res) => {
-  var firstName = req.body.firstName;
-  var lastName = req.body.lastName;
-  var userName = req.body.userName;
-  var password = req.body.password;
-
-  // Assuming 'con' is defined somewhere in your code
-  // con.connect(...);
+  // Registration logic
 
   // Assuming 'req.session.user' is set in your registration logic
 
@@ -50,6 +45,27 @@ app.post('/register', (req, res) => {
   res.send('User registered successfully!');
 });
 
+// Define your GraphQL schema
+const typeDefs = gql`
+  type Query {
+    hello: String
+  }
+`;
+
+// Provide resolver functions for your schema fields
+const resolvers = {
+  Query: {
+    hello: () => 'Hello, world!',
+  },
+};
+
+// Create an Apollo Server instance
+const server = new ApolloServer({ typeDefs, resolvers });
+
+// Apply the Apollo Server middleware to Express
+server.applyMiddleware({ app });
+
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`GraphQL Playground at http://localhost:${PORT}${server.graphqlPath}`);
 });
