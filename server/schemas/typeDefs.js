@@ -1,9 +1,10 @@
 const typeDefs = `
+    
     type Query {
         user: User
     }
 
-    type mutation {
+    type Mutation {
         login(email: String!, password: String!): Auth
         addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
         saveEvent(data: ID): User
@@ -22,11 +23,11 @@ const typeDefs = `
         description: String
         image: String
         link: String
-        date: Date
+        date: String
         location: String
         name: String
-        ticketQuantity: Number
-        ticketPrice: Number
+        ticketQuantity: Int
+        ticketPrice: Int
     }
 
     type Auth {
