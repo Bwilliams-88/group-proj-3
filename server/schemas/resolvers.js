@@ -39,6 +39,10 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
+    addEvent: async (parent, args, context) => {
+      const eventInfo = await User.create(args);
+      return { eventInfo };
+    },
   },
 };
 
