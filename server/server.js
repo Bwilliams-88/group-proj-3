@@ -1,57 +1,71 @@
-const path = require ('path');
-const express = require (' express');
-const cookieParser = require ("cookie-parser");
-const sessions = require ('express-sessions');
-const http = require ('http');
-var parseUrl = require ('body-parser');
-const app = express ();
+// server/server.js
+const path = require('path');
+const express = require('express');
+const { ApolloServer, gql } = require('apollo-server-express');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const bodyParser = require('body-parser');
+const mongooseConnection = require('./config/connection');
+
+const app = express();
 const PORT = process.env.PORT || 3001;
+
+// MongoDB connection
+mongooseConnection.on('error', (error) => {
+  console.error('MongoDB connection error:', error);
+});
+
+mongooseConnection.once('open', () => {
+  console.log('MongoDB connected successfully');
+});
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-let encodeUrl = parseUrl.urlencoded({ extended: false });
-
-app.use(sessions({
-    secret: "thisismysecrctekey",
-    saveUninitialized:true,
-    cookie: { maxAge: 1000 * 60 * 60 * 24 }, // 24 hours
-    resave: false
-}));
-
 app.use(cookieParser());
 
+app.use(
+  session({
+    secret: 'thisismysecrectkey',
+    saveUninitialized: true,
+    cookie: { maxAge: 1000 * 60 * 60 * 24 }, // 24 hours
+    resave: false,
+  })
+);
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/register.html');
-})
+  res.sendFile(path.join(__dirname, 'register.html'));
+});
 
-app.post('/register', encodeUrl, (req, res) => {
-    var firstName = req.body.firstName;
-    var lastName = req.body.lastName;
-    var userName = req.body.userName;
-    var password = req.body.password;
+app.post('/register', (req, res) => {
+  // Registration logic
 
-    con.connect(function(err) {
-        if (err){
-            console.log(err);
-        };
-        // checking user already registered or no
-        con.query(`SELECT * FROM users WHERE username = '${userName}' AND password  = '${password}'`, function(err, result){
-            if(err){
-                console.log(err);
-            };
-            if(Object.keys(result).length > 0){
-                res.sendFile(__dirname + '/failReg.html');
-            }else{
-            //creating user page in userPage function
-            function userPage(){
-                // We create a session for the dashboard (user page) page and save the user data to this session:
-                req.session.user = {
-                    firstname: firstName,
-                    lastname: lastName,
-                    username: userName,
-                    password: password 
-                };
-            
+  // Assuming 'req.session.user' is set in your registration logic
+
+  // Redirect or send some response
+  res.send('User registered successfully!');
+});
+
+// Define your GraphQL schema
+const typeDefs = gql`
+  type Query {
+    hello: String
+  }
+`;
+
+// Provide resolver functions for your schema fields
+const resolvers = {
+  Query: {
+    hello: () => 'Hello, world!',
+  },
+};
+
+// Create an Apollo Server instance
+const server = new ApolloServer({ typeDefs, resolvers });
+
+// Apply the Apollo Server middleware to Express
+server.applyMiddleware({ app });
+
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`GraphQL Playground at http://localhost:${PORT}${server.graphqlPath}`);
 });
