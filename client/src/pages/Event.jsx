@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // client/src/pages/Event.jsx
 import React from "react";
 import { useQuery } from "@apollo/client";
