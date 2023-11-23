@@ -13,10 +13,23 @@ export const GET_USER = gql`
 `;
 
 export const GET_EVENT = gql`
-  GetEvent {
+  query GetEvent {
     event {
+      _id
+      name
+      description
+      date
+      location
+      ticketQuantity
+      ticketPrice
+      image
+      likes {
         _id
-        name
+        // Include other user fields as needed
+        firstName
+        lastName
+        email
+      }
     }
   }
 `;
