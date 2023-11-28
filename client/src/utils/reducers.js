@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
-import { EVENTS_LIST } from "./actions";
+import { EVENTS_LIST, REMOVE_EVENT } from "./actions";
 
 export const reducer = (state, action) => {
   switch (action.type) {
