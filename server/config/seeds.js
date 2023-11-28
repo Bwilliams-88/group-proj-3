@@ -1,10 +1,10 @@
 const db = require("./connection");
 const { Event, User } = require("../models");
-const cleanDB = require('./cleanDB');
+const cleanDB = require("./cleanDB");
 
 db.once("open", async () => {
-  await cleanDB('Event', 'events');
-  await cleanDB('User', 'users');
+  await cleanDB("Event", "events");
+  await cleanDB("User", "users");
   const events = await Event.insertMany([
     {
       name: "Competitive Bird Feeding",
@@ -21,7 +21,8 @@ db.once("open", async () => {
     {
       name: "Soccer FC Austin Game",
       link: "https://google.com",
-      image: "https://www.jchsofthebay.org/team_pages/boys-varsity-soccer/",
+      image:
+        "https://www.jchsofthebay.org/wp-content/uploads/2022/06/Copy-of-8V9A3132-1536x1025.jpg",
       ticketPrice: 20,
       ticketQuantity: 500,
       date: "May 9, 2024",
