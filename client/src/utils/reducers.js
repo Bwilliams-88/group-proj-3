@@ -1,28 +1,26 @@
-import {  Events_List  } from '.actions';
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
+import { EVENTS_LIST, REMOVE_EVENT } from "./actions";
 
 export const reducer = (state, action) => {
-    switch (action.type) {
-        case 'EVENTS_LIST': {
-            const newID = createID(state.events);
-            const newEvent = {...action.payload, id: newID }
+  switch (action.type) {
+    case EVENTS_LIST: {
+      const newID = createID(state.events);
+      const newEvent = { ...action.payload, id: newID };
 
-            return {
-                ...state,
-                events: [...state.events, newEvent],
-            };
-        }
-    case 'REMOVE_EVENT': {
-        return {
-           ...state,
-           events: state.events.filter((events) => events.id !== action.payload),
-        };
+      return {
+        ...state,
+        events: [...state.events, newEvent],
+      };
+    }
+    case REMOVE_EVENT: {
+      return {
+        ...state,
+        events: state.events.filter((events) => events.id !== action.payload),
+      };
     }
     default: {
-        return state;
+      return state;
     }
-
-
-    
-
-    }
-}
+  }
+};
