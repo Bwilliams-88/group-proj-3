@@ -10,7 +10,7 @@ db.once("open", async () => {
       name: "Competitive Bird Feeding",
       link: "https://google.com",
       image:
-        "https://depositphotos.com/photo/little-girl-feeding-birds-in-the-park-73982031.html",
+        "https://st4.depositphotos.com/20379936/27419/i/1600/depositphotos_274192892-stock-photo-wild-white-swans-resting-pond.jpg",
       ticketPrice: 40,
       ticketQuantity: 300,
       date: "March 24, 2024",
@@ -33,7 +33,7 @@ db.once("open", async () => {
       name: "National Hockey Showoff",
       link: "https://google.com",
       image:
-        "https://www.fosters.com/story/sports/college/2011/10/17/wildcats-frustrated-by-slow-start/49867736007/",
+        "https://www.fosters.com/gcdn/authoring/2011/10/17/NFDD/ghows-FD-c5d5e9fb-0271-4085-af50-07320a00c3e1-0092eb63.jpeg?width=640&height=426&fit=crop&format=pjpg&auto=webp",
       ticketPrice: 30,
       ticketQuantity: 500,
       date: "June 4, 2024",
@@ -43,7 +43,8 @@ db.once("open", async () => {
     {
       name: "League Swimmer Diving Teams",
       link: "https://google.com",
-      image: "https://swim.lifetime.life/programs/swim-team.html",
+      image:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Depart4x100.jpg/1280px-Depart4x100.jpg",
       ticketPrice: 20,
       ticketQuantity: 800,
       date: "December 17, 2024",
@@ -54,7 +55,7 @@ db.once("open", async () => {
       name: "Ice Skating Champion Battle",
       link: "https://google.com",
       image:
-        "https://www.wsav.com/weather-news/storm-team-3-now/winter-olympics-2022-ice-skating-ice-rink-science/",
+        "https://www.wsav.com/wp-content/uploads/sites/75/2022/02/GettyImages-1368865446.jpg?w=876&h=493&crop=1",
       ticketPrice: 20,
       ticketQuantity: 400,
       date: "September 28, 2024",
@@ -65,7 +66,7 @@ db.once("open", async () => {
       name: "F1 Duck racing",
       link: "https://google.com",
       image:
-        "https://www.northernexpress.com/news/feature/on-your-mark-get-set-duck/",
+        "https://af62359ed6764b37dd8d-a09ab6654f67c1c7801ec2e0698b9db1.ssl.cf2.rackcdn.com/images/Screen_Shot_2018-06-29_at_11.24.16_AM.png",
       ticketPrice: 60,
       ticketQuantity: 700,
       date: "January 7, 2024",
