@@ -1,13 +1,13 @@
 import { gql } from "@apollo/client"; // eslint-disable-line no-unused-vars
 
 export const GET_USER = gql`
-  GetUser {
+  query GetUser {
     user {
-        _id
-        firstName
-        lastName
-        email
-        savedEvents
+      _id
+      firstName
+      lastName
+      email
+      savedEvents
     }
   }
 `;
@@ -25,7 +25,7 @@ export const GET_EVENT = gql`
       image
       likes {
         _id
-        // Include other user fields as needed
+        # Include other user fields as needed
         firstName
         lastName
         email
@@ -35,12 +35,16 @@ export const GET_EVENT = gql`
 `;
 
 export const QUERY_ALL_EVENTS = gql`
-  {
+  query events {
     events {
       _id
       name
       description
-      price
+      ticketPrice
+      image
+      date
+      location
+      ticketQuantity
     }
   }
 `;

@@ -6,39 +6,47 @@ import Auth from '../utils/auth';
 import { LOGIN_USER } from '../utils/mutations';
 
 
-const Login = (props) => {
+function Login(props) {
   const [formState, setFormState] = useState({ email: '', password: '' });
-  const [login, { error, data }] = useMutation(LOGIN_USER);
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-
-    setFormState({
-      ...formState,
-      [name]: value,
-    });
-  };
+  const [login, { error }] = useMutation(LOGIN_USER);
 
   // submit form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     console.log(formState);
+  //   try {
+  //     const { data } = await login({
+  //       variables: { ...formState },
+  //     });
+
+  //     Auth.login(data.login.token);
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+
+  //   // clear form values
+  //   setFormState({
+  //     email: '',
+  //     password: '',
+  //   });
+  // };
     try {
       const { data } = await login({
-        variables: { ...formState },
+        variables: { email: formState.email, password: formState.password },
       });
-
+      console.log(data);
       Auth.login(data.login.token);
     } catch (e) {
-      console.error(e);
+      console.log('error', e);
     }
-
-    // clear form values
-    setFormState({
-      email: '',
-      password: '',
-    });
-  };
+  }; 
+      const handleChange = (event) => {
+        const { name, value } = event.target
+        setFormState({
+          ...formState,
+          [name]: value,
+        });
+      };
 
   return (
          <div className="container my-1">
@@ -66,12 +74,17 @@ const Login = (props) => {
                   onChange={handleChange}
                 />
                 </div>
+                {error ? (
+                  <div>
+                    <p className="error-text">The provided credentials are incorrect</p>
+                  </div>
+                ) : null}
                 <div className="flex-row flex-end">
                     <button type="submit">Submit</button>
                 </div>
               </form>
           </div>
   );
-};
+}
 
 export default Login;

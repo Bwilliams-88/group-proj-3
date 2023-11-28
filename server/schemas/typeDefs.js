@@ -2,6 +2,7 @@ const typeDefs = `
     
     type Query {
         user: User
+        events: [Event]
     }
 
     type Mutation {
@@ -17,17 +18,23 @@ const typeDefs = `
         lastName: String
         email: String
     }
+    type Like {
+        _id: ID!
+        firstName: String
+        lastName: String
+        email: String
+      }
 
     type Event {
         _id: ID!
         description: String
         image: String
-        link: String
         date: String
         location: String
         name: String
         ticketQuantity: Int
         ticketPrice: Int
+        likes: [Like]
     }
 
     type Auth {

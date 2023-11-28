@@ -1,15 +1,16 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import { useQuery } from "@apollo/client";
-import { GET_EVENT } from "../utils/queries";
+import { QUERY_ALL_EVENTS } from "../utils/queries";
 
 const Home = () => {
-    const { loading, error, data } = useQuery(GET_EVENT);
+    const { loading, error, data } = useQuery(QUERY_ALL_EVENTS);
 
     console.log(data)
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>
 
-    const { event } = data;
+    const { events } = data;
 
     const containerStyle = {
         display: 'flex',
@@ -31,7 +32,7 @@ const Home = () => {
             <div>
                 <h1>Event Tracker Homepage</h1>
                 <div style={containerStyle}>
-                    {event.map((event, index) => (
+                    {events.map((event, index) => (
                         <div key={index} style={eventDivStyle}>
                             <h1>{event.name}</h1>
                             <p>Description: {event.description}</p>
