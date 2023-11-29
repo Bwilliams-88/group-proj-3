@@ -1,3 +1,4 @@
+//src/utils/API.js
 export const getUser = (token) => {
   return fetch("/api/users/user", {
     headers: {

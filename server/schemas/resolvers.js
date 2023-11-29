@@ -1,3 +1,4 @@
+//server/schemas/resolvers.js
 const { signToken, AuthenticationError } = require("../utils/auth");
 const { User, Event } = require("../models/");
 
@@ -6,12 +7,12 @@ const resolvers = {
     user: async (parent, args, context) => {
       if (context.user) {
         const userInfo = await User.findOne({ _id: context.user._id });
+        return userInfo;
       }
-      throw AuthenticationError;
+      throw new AuthenticationError("Not logged in");
     },
     events: async () => {
       const events = await Event.find();
-      console.log(events, "event");
       return events;
     },
   },
@@ -25,11 +26,11 @@ const resolvers = {
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
       if (!user) {
-        throw AuthenticationError;
+        throw new AuthenticationError("Incorrect credentials");
       }
       const correctPw = await user.isCorrectPassword(password);
       if (!correctPw) {
-        throw AuthenticationError;
+        throw new AuthenticationError("Incorrect credentials");
       }
       const token = signToken(user);
       return { user, token };
@@ -43,11 +44,23 @@ const resolvers = {
         );
         return user;
       }
-      throw AuthenticationError;
+      throw new AuthenticationError("Not logged in");
     },
-    addEvent: async (parent, args, context) => {
-      const eventInfo = await User.create(args);
-      return { eventInfo };
+    addEvent: async (_, args, context) => {
+      const user = authMiddleware(context);
+
+      const event = new Event({
+        ...args,
+        admin: user._id,
+      });
+
+      await event.save();
+
+      await User.findByIdAndUpdate(user._id, {
+        $push: { events: event._id },
+      });
+
+      return event;
     },
   },
 };

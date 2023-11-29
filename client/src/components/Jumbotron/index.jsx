@@ -1,3 +1,4 @@
+/*client/src/components/Jumbotron/index.jsax */
 /* eslint-disable react/prop-types */
 function Jumbotron({ children }) {
     return (

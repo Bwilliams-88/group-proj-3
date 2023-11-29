@@ -1,3 +1,4 @@
+//server/config/seeds.js
 const db = require("./connection");
 const { Event, User } = require("../models");
 const cleanDB = require("./cleanDB");

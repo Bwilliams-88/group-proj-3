@@ -1,4 +1,5 @@
-import { gql } from "@apollo/client"; // eslint-disable-line no-unused-vars
+// src/utils/queries.js
+import { gql } from "@apollo/client";
 
 export const GET_USER = gql`
   query GetUser {
@@ -25,7 +26,6 @@ export const GET_EVENT = gql`
       image
       likes {
         _id
-        # Include other user fields as needed
         firstName
         lastName
         email
@@ -35,16 +35,16 @@ export const GET_EVENT = gql`
 `;
 
 export const QUERY_ALL_EVENTS = gql`
-  query events {
+  query GetAllEvents {
     events {
       _id
       name
       description
-      ticketPrice
-      image
       date
       location
       ticketQuantity
+      ticketPrice
+      image
     }
   }
 `;
@@ -68,6 +68,22 @@ export const QUERY_TICKET = gql`
       event {
         _id
       }
+    }
+  }
+`;
+
+// Fix the export for ADD_EVENT
+export const ADD_EVENT = gql`
+  mutation AddEvent($name: String!, $description: String!, $date: String!, $location: String!, $ticketQuantity: Int!, $ticketPrice: Int!, $image: String) {
+    addEvent(name: $name, description: $description, date: $date, location: $location, ticketQuantity: $ticketQuantity, ticketPrice: $ticketPrice, image: $image) {
+      _id
+      name
+      description
+      date
+      location
+      ticketQuantity
+      ticketPrice
+      image
     }
   }
 `;
