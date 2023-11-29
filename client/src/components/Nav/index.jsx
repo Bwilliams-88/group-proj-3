@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // client/src/components/Nav/index.jsx
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';

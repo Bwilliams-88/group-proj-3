@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // client/src/components/CreateEvent/index.jsx
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";

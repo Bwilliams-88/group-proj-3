@@ -1,4 +1,5 @@
 /*client/src/pages/login.jsx */
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -15,22 +16,6 @@ function Login(props) {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     console.log(formState);
-  //   try {
-  //     const { data } = await login({
-  //       variables: { ...formState },
-  //     });
-
-  //     Auth.login(data.login.token);
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-
-  //   // clear form values
-  //   setFormState({
-  //     email: '',
-  //     password: '',
-  //   });
-  // };
     try {
       const { data } = await login({
         variables: { email: formState.email, password: formState.password },
@@ -81,8 +66,11 @@ function Login(props) {
                   </div>
                 ) : null}
                 <div className="flex-row flex-end">
-                    <button type="submit">Submit</button>
+                  <a href='./Signup'>Don't have an account?</a>
                 </div>
+                <div className="flex-row flex-end">
+                    <button type="submit">Submit</button>
+                </div>                
               </form>
           </div>
   );

@@ -4,7 +4,9 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import { QUERY_ALL_EVENTS } from "../utils/queries";
 
+
 const Home = () => {
+
     const { loading, error, data } = useQuery(QUERY_ALL_EVENTS);
 
     console.log("Loading:", loading);
@@ -53,5 +55,4 @@ const Home = () => {
         </main>
     );
 };
-
 export default Home;
