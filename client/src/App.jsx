@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+// src/App.jsx
 import { Outlet } from 'react-router-dom';
 import {
   ApolloClient,
@@ -8,7 +9,7 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
-import Nav from './components/Nav';
+import NavTabs from './components/Nav';
 import { EventProvider } from './utils/GlobalState';
 
 const httpLink = createHttpLink({
@@ -35,7 +36,7 @@ function App() {
     <ApolloProvider client={client}>
       <div>
         <EventProvider>
-          <Nav />
+          <NavTabs />
           <Outlet />
         </EventProvider>
       </div>

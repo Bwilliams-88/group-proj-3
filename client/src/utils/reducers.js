@@ -1,3 +1,4 @@
+//src/utils/reducers.js
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 import { EVENTS_LIST, REMOVE_EVENT } from "./actions";

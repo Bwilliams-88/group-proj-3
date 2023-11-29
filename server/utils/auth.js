@@ -1,3 +1,4 @@
+// server/utils/auth.js
 const { GraphQLError } = require("graphql");
 const jwt = require("jsonwebtoken");
 
@@ -5,30 +6,29 @@ const secret = "password";
 const expiration = "2h";
 
 module.exports = {
-  authenticationError: new GraphQLError("could not authenticate user.", {
+  authenticationError: new GraphQLError("Could not authenticate user.", {
     extensions: {
       code: "UNAUTHENTICATED",
     },
   }),
   authMiddleware: function ({ req }) {
-    let token = req.body.token || req.query.token || req.headers.authorization;
-
-    if (req.headers.authorization) {
-      token = token.split(" ").pop().trim();
-    }
-
-    if (!token) {
-      return req;
-    }
-
     try {
-      const { data } = jwt.verify(token, secret, { maxAge: expiration });
-      req.user = data;
-    } catch {
-      console.log("Invalid token");
-    }
+      // Get the token from the request headers
+      const token = req.headers.authorization;
 
-    return req;
+      if (!token) {
+        throw new Error("Token not provided");
+      }
+
+      // Verify the token
+      const { data } = jwt.verify(token, secret);
+      req.user = data;
+
+      return { req };
+    } catch (error) {
+      console.error("Authentication error:", error.message);
+      return { req, error: this.authenticationError };
+    }
   },
   signToken: function ({ email, name, _id }) {
     const payload = { email, name, _id };

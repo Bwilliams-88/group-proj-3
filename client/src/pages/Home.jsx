@@ -1,3 +1,4 @@
+/* client/src/pages/Home.jsx */
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { useQuery } from "@apollo/client";
@@ -6,11 +7,15 @@ import { QUERY_ALL_EVENTS } from "../utils/queries";
 const Home = () => {
     const { loading, error, data } = useQuery(QUERY_ALL_EVENTS);
 
-    console.log(data)
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error.message}</p>
+    console.log("Loading:", loading);
+    console.log("Error:", error);
+    console.log("Data:", data);
 
-    const { events } = data;
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error.message}</p>;
+
+    // Check if data and events exist before destructuring
+    const events = data && data.events ? data.events : [];
 
     const containerStyle = {
         display: 'flex',

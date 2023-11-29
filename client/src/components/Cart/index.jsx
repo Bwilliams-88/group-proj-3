@@ -1,3 +1,4 @@
+/*client/src/components/Cart/index.jsax */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable react/no-unescaped-entities */
 import { useEffect } from "react";

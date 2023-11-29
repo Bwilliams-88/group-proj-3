@@ -1,3 +1,4 @@
+//src/utils/helpers.js
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-case-declarations */
 export function pluralize(name, count) {

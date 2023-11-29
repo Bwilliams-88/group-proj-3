@@ -1,3 +1,5 @@
+// client/src/components/Nav/index.jsx
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 function NavTabs() {
@@ -7,40 +9,40 @@ function NavTabs() {
     <ul className="nav nav-tabs">
       <li className="nav-item">
         <Link
-          to="/Home"
-          className={currentPage === '/Home' ? 'nav-link active' : 'nav-link'}
+          to="/"
+          className={currentPage === '/' ? 'nav-link active' : 'nav-link'}
         >
           Home
         </Link>
       </li>
       <li className="nav-item">
         <Link
-          to="/Login"
-          className={currentPage === '/Login' ? 'nav-link active' : 'nav-link'}
+          to="/login"
+          className={currentPage === '/login' ? 'nav-link active' : 'nav-link'}
         >
           Login
         </Link>
       </li>
       <li className="nav-item">
         <Link
-          to="/Signup"
-          className={currentPage === '/Signup' ? 'nav-link active' : 'nav-link'}
+          to="/signup"
+          className={currentPage === '/signup' ? 'nav-link active' : 'nav-link'}
         >
-           Signup  
+          Signup  
         </Link>
       </li>
       <li className="nav-item">
         <Link
-          to="/Event"
-          className={currentPage === '/Event' ? 'nav-link active' : 'nav-link'}
+          to="/create-event"
+          className={currentPage === '/create-event' ? 'nav-link active' : 'nav-link'}
         >
-          Event
+          Create Event
         </Link>
       </li>
       <li className="nav-item">
         <Link
-          to="/Cart"
-          className={currentPage === '/Cart' ? 'nav-link active' : 'nav-link'}
+          to="/cart"
+          className={currentPage === '/cart' ? 'nav-link active' : 'nav-link'}
         >
           Cart
         </Link>
