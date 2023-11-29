@@ -1,3 +1,4 @@
+/*client/src/components/Cartitem/index.jsax */
 /* eslint-disable react/prop-types */
 import { useEventContext } from "../../utils/GlobalState";
 import { REMOVE_FROM_CART, UPDATE_CART_QUANTITY } from "../../utils/actions";

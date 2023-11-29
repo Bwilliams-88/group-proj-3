@@ -1,3 +1,4 @@
+//server/config/cleanDB.js
 const models = require('../models');
 const db = require('../config/connection');
 
