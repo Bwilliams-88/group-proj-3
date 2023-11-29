@@ -3,10 +3,11 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import { QUERY_ALL_EVENTS } from "../utils/queries";
 
+
 const Home = () => {
+
     const { loading, error, data } = useQuery(QUERY_ALL_EVENTS);
 
-    console.log(data)
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>
 
@@ -48,5 +49,4 @@ const Home = () => {
         </main>
     );
 };
-
 export default Home;

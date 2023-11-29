@@ -5,6 +5,7 @@ const cleanDB = require("./cleanDB");
 db.once("open", async () => {
   await cleanDB("Event", "events");
   await cleanDB("User", "users");
+
   const events = await Event.insertMany([
     {
       name: "Competitive Bird Feeding",
@@ -13,7 +14,7 @@ db.once("open", async () => {
         "https://st4.depositphotos.com/20379936/27419/i/1600/depositphotos_274192892-stock-photo-wild-white-swans-resting-pond.jpg",
       ticketPrice: 40,
       ticketQuantity: 300,
-      date: "March 24, 2024",
+      date: "March 24, 2023",
       location: "Grant Park, Chicago, IL",
       description:
         "A fun and friendly competition to help feed the local birds",
@@ -89,6 +90,18 @@ db.once("open", async () => {
     lastName: "Montes",
     email: "kamilasfakeemail@gmail.com",
     password: "kamillasfakepw123",
+  });
+
+  await User.create({
+    firstName: "Brandon",
+    lastName: "Williams",
+    email: "brandonsfakeemail@yahoo.com",
+    password: "brandonsfakepw123",
+    orders: [
+      {
+        events: [events[0]._id, events[0]._id, events[1]._id],
+      },
+    ],
   });
 
   console.log("users seeded successfully!");

@@ -7,7 +7,7 @@ function NavTabs() {
     <ul className="nav nav-tabs">
       <li className="nav-item">
         <Link
-          to="/Home"
+          to="/"
           className={currentPage === '/Home' ? 'nav-link active' : 'nav-link'}
         >
           Home
