@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-// src/App.jsx
+//client/src/App.jsx
 import { Outlet } from 'react-router-dom';
 import {
   ApolloClient,

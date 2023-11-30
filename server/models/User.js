@@ -25,6 +25,7 @@ const userSchema = new Schema({
     required: true,
     minlength: 5
   },
+  events: [{ type: mongoose.Schema.Types.ObjectId, ref: "Event" }],
 
 }); 
 

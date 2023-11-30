@@ -3,45 +3,57 @@ import decode from 'jwt-decode';
 
 class AuthService {
     getProfile() {
-      return decode(this.getToken());
+        return decode(this.getToken());
     }
-  
+
     loggedIn() {
-      // Checks if there is a saved token and it's still valid
-      const token = this.getToken();
-      return !!token && !this.isTokenExpired(token);
+        const token = this.getToken();
+        return !!token && !this.isTokenExpired(token);
     }
-  
+
     isTokenExpired(token) {
-      try {
-        const decoded = decode(token);
-        if (decoded.exp < Date.now() / 1000) {
-          return true;
-        } else return false;
-      } catch (err) {
-        return false;
-      }
+        try {
+            const decoded = decode(token);
+            return decoded.exp < Date.now() / 1000;
+        } catch (err) {
+            return false;
+        }
     }
-  
+
     getToken() {
-      // Retrieves the user token from localStorage
-      return localStorage.getItem('id_token');
+        return localStorage.getItem('id_token');
     }
-  
+
     login(idToken) {
-      // Saves user token to localStorage
-      localStorage.setItem('id_token', idToken);
-  
-      window.location.assign('/');
+        localStorage.setItem('id_token', idToken);
+        window.location.assign('/');
     }
-  
+
     logout() {
-      // Clear user token and profile data from localStorage
-      localStorage.removeItem('id_token');
-      // this will reload the page and reset the state of the application
-      window.location.assign('/');
+        localStorage.removeItem('id_token');
+        window.location.assign('/');
+    }
+
+    async getUserEvents() {
+        try {
+            const token = this.getToken();
+
+            if (!token) {
+                throw new Error('No token found');
+            }
+
+            const decoded = decode(token);
+
+            // Assuming you have a way to fetch user events, replace the following line
+            // with your actual API call to retrieve user events
+            const userEvents = await yourApiCallToGetUserEvents(decoded.userId);
+
+            return userEvents;
+        } catch (error) {
+            console.error('Error fetching user events:', error);
+            throw error;
+        }
     }
 }
-  
+
 export default new AuthService();
-  
