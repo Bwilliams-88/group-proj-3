@@ -1,13 +1,8 @@
 //server/config/connection.js
 const mongoose = require("mongoose");
 
-mongoose.connect(
-  "mongodb+srv://ramosjustin728:NLHN0SMrlVdvyU3J@nexteventdb.3osg9xc.mongodb.net/",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/nexteventDB')
 
 const db = mongoose.connection;
 
