@@ -37,7 +37,6 @@ const startApolloServer = async () => {
   }
 
   // Apply the Apollo Server middleware to Express
-  // server.applyMiddleware({ app });
 
   db.once("open", () => {
     app.listen(PORT, () => {

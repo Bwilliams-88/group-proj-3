@@ -40,26 +40,31 @@ export const LOGIN_USER = gql`
 
 export const ADD_EVENT = gql`
   mutation addEvent(
-    $eventId: ID!
     $name: String!
     $description: String!
+    $date: String!
+    $location: String!
+    $ticketQuantity: Int!
+    $ticketPrice: Float!
     $image: String
-    $link: String!
   ) {
     addEvent(
-      eventId: $eventId
       name: $name
       description: $description
+      date: $date
+      location: $location
+      ticketQuantity: $ticketQuantity
+      ticketPrice: $ticketPrice
       image: $image
-      link: $link
     ) {
-      event {
-        _id
-        name
-        description
-        image
-        link
-      }
+      _id
+      name
+      description
+      date
+      location
+      ticketQuantity
+      ticketPrice
+      image
     }
   }
 `;

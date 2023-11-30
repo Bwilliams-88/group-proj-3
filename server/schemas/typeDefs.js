@@ -1,4 +1,4 @@
-//server/schemas/typeDefs.js
+// server/schemas/typeDefs.js
 
 const typeDefs =`
   type Query {
@@ -26,6 +26,7 @@ const typeDefs =`
     firstName: String
     lastName: String
     email: String
+    events: [Event]
   }
 
   type Like {

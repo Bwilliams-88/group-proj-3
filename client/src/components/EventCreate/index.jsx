@@ -2,6 +2,10 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_EVENT, GET_USER } from "../../utils/queries";
+import moment from "moment";
+// Import AuthService at the top of your file
+import AuthService from '../../utils/auth'; // Update the path accordingly
+
 
 const CreateEvent = () => {
   const [formData, setFormData] = useState({
@@ -35,8 +39,17 @@ const CreateEvent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Format the date using moment
+    const formattedDate = moment(formData.date).format("MM/DD/YYYY");
+
     try {
-      await addEvent({ variables: { ...formData } });
+      const token = AuthService.getToken();
+      const headers = { Authorization: `Bearer ${token}` };
+
+      await addEvent({
+        variables: { ...formData, date: formattedDate },
+        context: { headers },
+      });
     } catch (err) {
       console.error("Error adding event:", err);
     }
@@ -46,6 +59,7 @@ const CreateEvent = () => {
     <div>
       <h1>Create Event</h1>
       <form onSubmit={handleSubmit}>
+        {/* Include your event form fields here */}
         <label>
           Event Name:
           <input
