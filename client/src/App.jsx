@@ -10,7 +10,7 @@ import {
 import { setContext } from '@apollo/client/link/context';
 
 import NavTabs from './components/Nav';
-import { EventProvider } from './utils/GlobalState';
+import { EventProvider } from './utils/globalstate';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
