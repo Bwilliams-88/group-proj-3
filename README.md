@@ -10,6 +10,8 @@ For this assignment my group was assigned with creating a collaborative MERN-sta
 
 ## Screenshots
 
+![Alt text](image.png)
+
 ## Links
 
 [Heroku]()
