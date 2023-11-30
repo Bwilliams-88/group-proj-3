@@ -1,12 +1,14 @@
-//server/schemas/resolvers.js
+// server/schemas/resolvers.js
+
 const { signToken, AuthenticationError } = require("../utils/auth");
 const { User, Event } = require("../models/");
+const { authMiddleware } = require("../utils/auth");
 
 const resolvers = {
   Query: {
     user: async (parent, args, context) => {
       if (context.user) {
-        const userInfo = await User.findOne({ _id: context.user._id });
+        const userInfo = await User.findOne({ _id: context.user._id }).populate('events');
         return userInfo;
       }
       throw new AuthenticationError("Not logged in");
@@ -41,15 +43,16 @@ const resolvers = {
           { _id: context.user._id },
           { $addToSet: { savedEvents: args.eventInfo } },
           { new: true, runValidators: true }
-        );
+        ).populate('events');
         return user;
       }
       throw new AuthenticationError("Not logged in");
     },
     addEvent: async (_, args, context) => {
+      console.log("hi")
       const user = authMiddleware(context);
-
-      const event = new Event({
+      console.log(args)
+      const event = Event.create ({
         ...args,
         admin: user._id,
       });
