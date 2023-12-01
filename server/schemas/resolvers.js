@@ -50,7 +50,7 @@ const resolvers = {
     },
     addEvent: async (_, args, context) => {
       console.log("hi")
-      const user = authMiddleware(context);
+      const user = authMiddleware(context).user;
       console.log(args)
       const event = Event.create ({
         ...args,
