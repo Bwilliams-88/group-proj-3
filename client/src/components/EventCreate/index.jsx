@@ -65,6 +65,7 @@ const CreateEvent = () => {
       });
 
       navigate("/");
+      window.location.reload();
     } catch (err) {
       console.error("Error adding event:", err);
     }
