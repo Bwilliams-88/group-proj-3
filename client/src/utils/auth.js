@@ -46,7 +46,7 @@ class AuthService {
 
             // Assuming you have a way to fetch user events, replace the following line
             // with your actual API call to retrieve user events
-            const userEvents = await yourApiCallToGetUserEvents(decoded.userId);
+            const userEvents = await getevent(decoded.userId);
 
             return userEvents;
         } catch (error) {
