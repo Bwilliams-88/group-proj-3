@@ -2,9 +2,11 @@
 // client/src/components/CreateEvent/index.jsx
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { ADD_EVENT } from "../../utils/mutations";
+import { ADD_EVENT, GET_USER } from "../../utils/queries";
 import moment from "moment";
-import AuthService from '../../utils/auth';
+// Import AuthService at the top of your file
+import AuthService from '../../utils/auth'; // Update the path accordingly
+
 
 const CreateEvent = () => {
   const [formData, setFormData] = useState({
@@ -18,45 +20,16 @@ const CreateEvent = () => {
   });
 
   const [addEvent, { loading, error }] = useMutation(ADD_EVENT)
-    // update(cache, { data: { addEvent } }) {
-    //   // Use the data variable directly instead of destructuring
-    //   const { events } = cache.readQuery({ query: GET_USER });
-    //   cache.writeQuery({
-    //     query: GET_USER,
-    //     data: { events: [...events, addEvent] },
-    //   });
-    // },
+  //   , {
+  //   update(cache, { data: { addEvent } }) {
+  //     const { events } = cache.readQuery({ query: GET_USER });
+  //     cache.writeQuery({
+  //       query: GET_USER,
+  //       data: { events: [...events, addEvent] },
+  //     });
+  //   },
   // });
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    console.log(formData)
-    // Format the date using moment
-    const formattedDate = moment(formData.date).format("MM/DD/YYYY");
-    console.log(formData, formattedDate)
-    try {
-      const token = AuthService.getToken();
-      const headers = { Authorization: `Bearer ${token}` };
-      // Use the await keyword to wait for the mutation to complete
-      const mutationresponse = await addEvent({
-        variables: { ...formData, date: formattedDate }
-        // context: { headers },
-      });
-      console.log('test')
-      // Clear the form after a successful submission
-      setFormData({
-        name: "",
-        description: "",
-        date: "",
-        location: "",
-        ticketQuantity: 0,
-        ticketPrice: 0,
-        image: "",
-      });
-    } catch (err) {
-      console.error("Error adding event:", err);
-    }
-  };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     if (name=="ticketQuantity" || name=="ticketPrice"){
@@ -71,8 +44,28 @@ const CreateEvent = () => {
         [name]: value,
       }));
     }
-    
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Format the date using moment
+    const formattedDate = moment(formData.date).format("MM/DD/YYYY");
+
+    try {
+      const token = AuthService.getToken();
+      const headers = { Authorization: `Bearer ${token}` };
+      console.log(formData)
+      console.log(typeof formData.ticketPrice)
+      // console.log("this is formdata before adding to the event: ", formData)
+      await addEvent({
+        variables: { ...formData, date: formattedDate }
+      });
+    } catch (err) {
+      console.error("Error adding event:", err);
+    }
   };
+
   return (
     <div>
       <h1>Create Event</h1>

@@ -1,6 +1,6 @@
 // server/schemas/typeDefs.js
 
-const typeDefs =`
+const typeDefs = `
   type Query {
     user: User
     events: [Event]
@@ -16,7 +16,7 @@ const typeDefs =`
       date: String!
       location: String!
       ticketQuantity: Int!
-      ticketPrice: Float!
+      ticketPrice: Int!
       image: String
     ): Event
   }
