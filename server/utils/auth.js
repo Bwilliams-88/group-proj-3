@@ -25,9 +25,13 @@ module.exports = {
   }),
 
   authMiddleware: async function ({ req }) {
-    let token = req.body.token || req.query.token || req.headers.authorization;
+    if (!req) {
+      throw new Error("Request object not provided");
+    }
 
-    if (req.headers.authorization) {
+    let token = req.body?.token || req.query?.token || req.headers?.authorization;
+
+    if (req.headers?.authorization) {
       token = token.split(" ").pop().trim();
     }
 
@@ -49,12 +53,11 @@ module.exports = {
       }
 
       req.user = data;
-      return req;
+      return { req };
     } catch (error) {
       console.log("Invalid token:", error.message);
+      throw new Error("Invalid token");
     }
-
-    return req;
   },
 
   signToken: function ({ email, name, _id }) {
