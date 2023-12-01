@@ -8,13 +8,17 @@ const resolvers = {
   Query: {
     user: async (parent, args, context) => {
       if (context.user) {
-        const userInfo = await User.findOne({ _id: context.user._id }).populate('events');
+        const userInfo = await User.findOne({ _id: context.user._id }).populate(
+          "events"
+        );
         return userInfo;
       }
-      throw new AuthenticationError("Not logged in");
+      throw AuthenticationError;
     },
     events: async () => {
+      console.log("hello!!!");
       const events = await Event.find();
+      console.log(events);
       return events;
     },
   },
@@ -28,11 +32,11 @@ const resolvers = {
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
       if (!user) {
-        throw new AuthenticationError("Incorrect credentials");
+        throw AuthenticationError;
       }
       const correctPw = await user.isCorrectPassword(password);
       if (!correctPw) {
-        throw new AuthenticationError("Incorrect credentials");
+        throw AuthenticationError;
       }
       const token = signToken(user);
       return { user, token };
@@ -43,23 +47,22 @@ const resolvers = {
           { _id: context.user._id },
           { $addToSet: { savedEvents: args.eventInfo } },
           { new: true, runValidators: true }
-        ).populate('events');
+        ).populate("events");
         return user;
       }
-      throw new AuthenticationError("Not logged in");
+      throw AuthenticationError;
     },
     addEvent: async (_, args, context) => {
-      console.log("hi")
-      const user = authMiddleware(context);
-      console.log(args)
-      const event = Event.create ({
+      console.log("hi");
+      //const user = authMiddleware(context);
+      console.log("this is user in add event: ", context.user);
+      console.log(args);
+      const event = Event.create({
         ...args,
-        admin: user._id,
+        admin: context.user._id,
       });
 
-      await event.save();
-
-      await User.findByIdAndUpdate(user._id, {
+      await User.findByIdAndUpdate(context.user._id, {
         $push: { events: event._id },
       });
 

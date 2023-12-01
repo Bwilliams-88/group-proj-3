@@ -45,7 +45,7 @@ export const ADD_EVENT = gql`
     $date: String!
     $location: String!
     $ticketQuantity: Int!
-    $ticketPrice: Float!
+    $ticketPrice: Int!
     $image: String
   ) {
     addEvent(

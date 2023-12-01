@@ -19,23 +19,32 @@ const CreateEvent = () => {
     image: "",
   });
 
-  const [addEvent, { loading, error }] = useMutation(ADD_EVENT, {
-    update(cache, { data: { addEvent } }) {
-      const { events } = cache.readQuery({ query: GET_USER });
-      cache.writeQuery({
-        query: GET_USER,
-        data: { events: [...events, addEvent] },
-      });
-    },
-  });
+  const [addEvent, { loading, error }] = useMutation(ADD_EVENT)
+  //   , {
+  //   update(cache, { data: { addEvent } }) {
+  //     const { events } = cache.readQuery({ query: GET_USER });
+  //     cache.writeQuery({
+  //       query: GET_USER,
+  //       data: { events: [...events, addEvent] },
+  //     });
+  //   },
+  // });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+    if (name=="ticketQuantity" || name=="ticketPrice"){
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: parseInt(value),
+      }));
+    }
+    else{
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: value,
+      }));
+    }
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,10 +55,11 @@ const CreateEvent = () => {
     try {
       const token = AuthService.getToken();
       const headers = { Authorization: `Bearer ${token}` };
-
+      console.log(formData)
+      console.log(typeof formData.ticketPrice)
+      // console.log("this is formdata before adding to the event: ", formData)
       await addEvent({
-        variables: { ...formData, date: formattedDate },
-        context: { headers },
+        variables: { ...formData, date: formattedDate }
       });
     } catch (err) {
       console.error("Error adding event:", err);

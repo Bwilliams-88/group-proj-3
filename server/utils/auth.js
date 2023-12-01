@@ -7,38 +7,37 @@ const secret = "password";
 const expiration = "2h";
 
 module.exports = {
-  authenticationError: new GraphQLError("Could not authenticate user.", {
+  AuthenticationError: new GraphQLError("Could not authenticate user.", {
     extensions: {
       code: "UNAUTHENTICATED",
     },
   }),
   authMiddleware: async function ({ req }) {
     let token = req.body.token || req.query.token || req.headers.authorization;
-  
+
     if (req.headers.authorization) {
       token = token.split(" ").pop().trim();
     }
-  
+
     console.log("Extracted token:", token);
-  
+
     if (!token) {
-      throw new Error("Token not provided");
+      return req;
     }
-  
+
     try {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
-  
+
       // Fetch user's events from the database
       // const userWithEvents = await User.findById(data._id).populate("events");
-  
+
       // Update req.user to include events
-      req.user = data
-      return req
-      
+      req.user = data;
+      return req;
     } catch (error) {
       console.log("Invalid token:", error.message);
     }
-  
+
     return req;
   },
 
