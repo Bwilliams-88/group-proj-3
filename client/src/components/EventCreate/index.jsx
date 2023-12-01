@@ -4,9 +4,7 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_EVENT, GET_USER } from "../../utils/queries";
 import moment from "moment";
-// Import AuthService at the top of your file
-import AuthService from '../../utils/auth'; // Update the path accordingly
-
+import AuthService from '../../utils/auth';
 
 const CreateEvent = () => {
   const [formData, setFormData] = useState({
@@ -21,6 +19,7 @@ const CreateEvent = () => {
 
   const [addEvent, { loading, error }] = useMutation(ADD_EVENT, {
     update(cache, { data: { addEvent } }) {
+      // Use the data variable directly instead of destructuring
       const { events } = cache.readQuery({ query: GET_USER });
       cache.writeQuery({
         query: GET_USER,
@@ -31,10 +30,10 @@ const CreateEvent = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setFormData((prevFormData) => ({
+      ...prevFormData,
       [name]: value,
-    });
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -47,9 +46,21 @@ const CreateEvent = () => {
       const token = AuthService.getToken();
       const headers = { Authorization: `Bearer ${token}` };
 
+      // Use the await keyword to wait for the mutation to complete
       await addEvent({
         variables: { ...formData, date: formattedDate },
         context: { headers },
+      });
+
+      // Clear the form after a successful submission
+      setFormData({
+        name: "",
+        description: "",
+        date: "",
+        location: "",
+        ticketQuantity: 0,
+        ticketPrice: 0,
+        image: "",
       });
     } catch (err) {
       console.error("Error adding event:", err);
