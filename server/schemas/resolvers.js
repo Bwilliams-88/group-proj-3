@@ -49,7 +49,6 @@ const resolvers = {
       throw new AuthenticationError("Not logged in");
     },
     addEvent: async (_, args, context) => {
-      console.log("hi")
       const user = authMiddleware(context).user;
       console.log(args)
       const event = Event.create ({

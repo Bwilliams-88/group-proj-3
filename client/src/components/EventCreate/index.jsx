@@ -1,9 +1,8 @@
 /* eslint-disable no-unused-vars */
 // client/src/components/CreateEvent/index.jsx
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
 import { useMutation } from "@apollo/client";
-import { ADD_EVENT, GET_USER } from "../../utils/queries";
+import { ADD_EVENT } from "../../utils/mutations";
 import moment from "moment";
 import AuthService from '../../utils/auth';
 
@@ -18,33 +17,32 @@ const CreateEvent = () => {
     image: "",
   });
 
-  const [addEvent, { loading, error }] = useMutation(ADD_EVENT, {
-    update(cache, { data: { addEvent } }) {
-      // Use the data variable directly instead of destructuring
-      const { events } = cache.readQuery({ query: GET_USER });
-      cache.writeQuery({
-        query: GET_USER,
-        data: { events: [...events, addEvent] },
-      });
-    },
-  });
+  const [addEvent, { loading, error }] = useMutation(ADD_EVENT)
+    // update(cache, { data: { addEvent } }) {
+    //   // Use the data variable directly instead of destructuring
+    //   const { events } = cache.readQuery({ query: GET_USER });
+    //   cache.writeQuery({
+    //     query: GET_USER,
+    //     data: { events: [...events, addEvent] },
+    //   });
+    // },
+  // });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    console.log(formData)
     // Format the date using moment
     const formattedDate = moment(formData.date).format("MM/DD/YYYY");
-
+    console.log(formData, formattedDate)
     try {
       const token = AuthService.getToken();
       const headers = { Authorization: `Bearer ${token}` };
-
       // Use the await keyword to wait for the mutation to complete
-      await addEvent({
-        variables: { ...formData, date: formattedDate },
-        context: { headers },
+      const mutationresponse = await addEvent({
+        variables: { ...formData, date: formattedDate }
+        // context: { headers },
       });
-
+      console.log('test')
       // Clear the form after a successful submission
       setFormData({
         name: "",
@@ -61,10 +59,19 @@ const CreateEvent = () => {
   };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
+    if (name=="ticketQuantity" || name=="ticketPrice"){
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: parseInt(value),
+      }));
+    }
+    else{
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: value,
+      }));
+    }
+    
   };
   return (
     <div>
