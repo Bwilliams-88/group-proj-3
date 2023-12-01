@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_EVENT, GET_USER } from "../../utils/queries";
+import { useNavigate } from "react-router-dom";
 import moment from "moment";
 // Import AuthService at the top of your file
 import AuthService from '../../utils/auth'; // Update the path accordingly
@@ -18,6 +19,8 @@ const CreateEvent = () => {
     ticketPrice: 0,
     image: "",
   });
+
+  const navigate = useNavigate();
 
   const [addEvent, { loading, error }] = useMutation(ADD_EVENT)
   //   , {
@@ -60,11 +63,12 @@ const CreateEvent = () => {
       await addEvent({
         variables: { ...formData, date: formattedDate }
       });
+
+      navigate("/");
     } catch (err) {
       console.error("Error adding event:", err);
     }
   };
-
   return (
     <div>
       <h1>Create Event</h1>
