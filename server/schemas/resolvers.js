@@ -65,8 +65,6 @@ const resolvers = {
       await User.findByIdAndUpdate(context.user._id, {
         $push: { events: event._id },
       });
-
-      return event;
     },
   },
 };
