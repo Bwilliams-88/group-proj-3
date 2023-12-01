@@ -1,4 +1,4 @@
-// server/server.js
+// server/server.js hi
 const path = require("path");
 const express = require("express");
 const { authMiddleware } = require("./utils/auth");

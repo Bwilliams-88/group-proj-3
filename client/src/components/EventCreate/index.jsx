@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 // client/src/components/CreateEvent/index.jsx
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
 import { useMutation } from "@apollo/client";
 import { ADD_EVENT, GET_USER } from "../../utils/queries";
 import moment from "moment";
@@ -28,16 +29,8 @@ const CreateEvent = () => {
     },
   });
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
     // Format the date using moment
     const formattedDate = moment(formData.date).format("MM/DD/YYYY");
@@ -66,7 +59,13 @@ const CreateEvent = () => {
       console.error("Error adding event:", err);
     }
   };
-
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
   return (
     <div>
       <h1>Create Event</h1>
