@@ -51,7 +51,6 @@ const CreateEvent = () => {
 
     // Format the date using moment
     const formattedDate = moment(formData.date).format("MM/DD/YYYY");
-
     try {
       const token = AuthService.getToken();
       const headers = { Authorization: `Bearer ${token}` };
