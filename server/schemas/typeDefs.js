@@ -20,6 +20,16 @@ const typeDefs = `
       ticketPrice: Int!
       image: String
     ): Event
+    updateEvent(
+      eventId: ID!
+      name: String
+      description: String
+      date: String
+      location: String
+      ticketQuantity: Int
+      ticketPrice: Float
+      image: String
+    ): Event
   }
 
   type User {
