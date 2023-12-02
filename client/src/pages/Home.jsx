@@ -3,7 +3,7 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 import { QUERY_ALL_EVENTS } from "../utils/queries";
-
+import { Link } from "react-router-dom";
 
 const Home = () => {
 
@@ -48,6 +48,7 @@ const Home = () => {
                             <p>Ticket Quantity: {event.ticketQuantity}</p>
                             <p>Ticket Price: {event.ticketPrice}</p>
                             <img src={event.image} alt={`Event ${index + 1}`} />
+                            <Link to={`/event/${event._id}`}>See More</Link>
                         </div>
                     ))}
                 </div>

@@ -12,6 +12,9 @@ import Error from './pages/Error';
 // Import the CreateEvent component from the correct directory
 import CreateEvent from './components/EventCreate';
 
+// Import the Event component
+import Event from './pages/Event';
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -33,6 +36,11 @@ const router = createBrowserRouter([
       {
         path: '/create-event',
         element: <CreateEvent />,
+      },
+      {
+        // Add a route for viewing a specific event
+        path: '/event/:eventId',
+        element: <Event />,
       },
     ],
   },
