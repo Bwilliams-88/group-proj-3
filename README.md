@@ -1,6 +1,10 @@
+# NextEvent-Tracker
+
+## Table Of Contents
+
 [Description](#description) | [Contributors](#contributors) | [Screenshots](#screenshots) | [Links](#links)
 
-# Description
+## Description
 
 For this assignment my group was assigned with creating a collaborative MERN-stack single-page application by combining a scalable MongoDB backend, GraphQL API, and an Express.js and Node.jss server with a REACH front end. We also implemented JWT and bcrypt for login security and Stripe for a payment platform.
 
@@ -14,4 +18,6 @@ For this assignment my group was assigned with creating a collaborative MERN-sta
 
 ## Links
 
-[Heroku](https://nexevent-17270abe477b.herokuapp.com/)
+[GitHubRepo](https://github.com/Bwilliams-88/nexevent-tracker/pull/58)
+
+[Heroku](https://nextevent-06cc10aef971.herokuapp.com/)

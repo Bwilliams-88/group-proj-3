@@ -3,9 +3,18 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 import { GET_EVENT } from "../utils/queries";
+import { useParams } from "react-router-dom";
 
 const Event = () => {
-  const { loading, error, data } = useQuery(GET_EVENT);
+  // Use useParams to get the route parameters
+  const { eventId } = useParams();
+
+  // Use the useQuery hook with variables to fetch a specific event
+  const { loading, error, data } = useQuery(GET_EVENT, {
+    variables: {
+      eventId: eventId,
+    },
+  });
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;

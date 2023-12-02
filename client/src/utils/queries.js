@@ -14,25 +14,26 @@ export const GET_USER = gql`
 `;
 
 export const GET_EVENT = gql`
-  query GetEvent {
-    event {
-      _id
-      name
+  query GetEvent($eventId: ID!) {
+    event(eventId: $eventId) {
       description
+      _id
+      admin {
+        _id
+      }
       date
-      location
-      ticketQuantity
-      ticketPrice
       image
       likes {
         _id
-        firstName
-        lastName
-        email
       }
+      location
+      name
+      ticketPrice
+      ticketQuantity
     }
   }
 `;
+
 
 export const QUERY_ALL_EVENTS = gql`
   query GetAllEvents {

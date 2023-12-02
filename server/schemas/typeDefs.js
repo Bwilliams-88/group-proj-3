@@ -4,6 +4,7 @@ const typeDefs = `
   type Query {
     user: User
     events: [Event]
+    event(eventId: ID!): Event
   }
 
   type Mutation {

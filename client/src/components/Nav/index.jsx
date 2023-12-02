@@ -40,14 +40,14 @@ function NavTabs() {
           Create Event
         </Link>
       </li>
-      <li className="nav-item">
+      {/* <li className="nav-item">
         <Link
           to="/cart"
           className={currentPage === '/cart' ? 'nav-link active' : 'nav-link'}
         >
           Cart
         </Link>
-      </li>
+      </li> */}
     </ul>
   );
 }

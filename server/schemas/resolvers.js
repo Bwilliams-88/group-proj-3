@@ -21,6 +21,14 @@ const resolvers = {
       console.log(events);
       return events;
     },
+    event: async (_, {eventId}) => {
+      try {
+        const events = await Event.findById(eventId);
+      return events
+      } catch (error) {
+        console.log(error)
+      }
+    },
   },
 
   Mutation: {
