@@ -88,3 +88,36 @@ export const ADD_EVENT = gql`
     }
   }
 `;
+
+export const UPDATE_EVENT = gql`
+  mutation UpdateEvent(
+    $eventId: ID!
+    $name: String
+    $description: String
+    $date: String
+    $location: String
+    $ticketQuantity: Int
+    $ticketPrice: Float
+    $image: String
+  ) {
+    updateEvent(
+      eventId: $eventId
+      name: $name
+      description: $description
+      date: $date
+      location: $location
+      ticketQuantity: $ticketQuantity
+      ticketPrice: $ticketPrice
+      image: $image
+    ) {
+      _id
+      name
+      description
+      date
+      location
+      ticketQuantity
+      ticketPrice
+      image
+    }
+  }
+`;

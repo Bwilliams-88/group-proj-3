@@ -74,6 +74,31 @@ const resolvers = {
         $push: { events: event._id },
       });
     },
+    // Add the resolver for the updateEvent mutation
+    updateEvent: async (_, args, context) => {
+      if (context.user) {
+        const { eventId, ...updatedEvent } = args;
+
+        // Check if the user is the admin of the event
+        const existingEvent = await Event.findOne({
+          _id: eventId,
+          admin: context.user._id,
+        });
+
+        if (!existingEvent) {
+          throw new AuthenticationError("You are not authorized to update this event.");
+        }
+
+        // Update the event
+        const updatedEventData = await Event.findByIdAndUpdate(eventId, updatedEvent, {
+          new: true,
+        });
+
+        return updatedEventData;
+      }
+
+      throw new AuthenticationError("You must be logged in to update an event.");
+    },
   },
 };
 
